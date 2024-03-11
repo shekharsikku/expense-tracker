@@ -1,6 +1,5 @@
 import passport from "passport";
 import bcrypt from "bcryptjs";
-
 import User from "../models/user.model.js";
 import { GraphQLLocalStrategy } from "graphql-passport";
 
@@ -32,7 +31,6 @@ export const configurePassport = async () => {
                 if (!validPassword) {
                     throw new Error("Invalid username or password");
                 }
-
                 return done(null, user);
             } catch (err) {
                 return done(err);
