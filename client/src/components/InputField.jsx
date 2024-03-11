@@ -13,6 +13,7 @@ const InputField = ({ label, id, name, type = "text", onChange, value }) => {
                 name={name}
                 value={value}
                 onChange={onChange}
+                autoComplete="off"
             />
         </div>
     );

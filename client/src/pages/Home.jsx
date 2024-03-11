@@ -1,13 +1,25 @@
+import toast from "react-hot-toast";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import Cards from "../components/Cards";
 import TransactionForm from "../components/TransactionForm";
-
 import { MdLogout } from "react-icons/md";
+import { useMutation, useQuery } from "@apollo/client";
+import { LOGOUT } from "../graphql/mutations/user.mutation";
+// import { GET_TRANSACTION_STATISTICS } from "../graphql/queries/transaction.query";
+import { GET_AUTHENTICATED_USER } from "../graphql/queries/user.query";
+import { useEffect, useState } from "react";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Home = () => {
+    // const { data } = useQuery(GET_TRANSACTION_STATISTICS);
+    const { data: authUserData } = useQuery(GET_AUTHENTICATED_USER);
+
+    const [logout, { loading, client }] = useMutation(LOGOUT, {
+        refetchQueries: ["GetAuthenticatedUser"],
+    });
+
     const chartData = {
         labels: ["Saving", "Expense", "Investment"],
         datasets: [
@@ -24,11 +36,15 @@ const Home = () => {
         ],
     };
 
-    const handleLogout = () => {
-        console.log("Logging out...");
+    const handleLogout = async () => {
+        try {
+            await logout();
+            client.resetStore();
+        } catch (error) {
+            console.error("Error :", error.message);
+            toast.error(error.message);
+        }
     };
-
-    const loading = false;
 
     return (
         <>
