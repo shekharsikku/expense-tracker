@@ -2,7 +2,7 @@ import { transactions } from "../temp/data.js";
 
 const transactionResolver = {
     Query: {
-        users: () => {
+        transactions: () => {
             return transactions
         }
     },
