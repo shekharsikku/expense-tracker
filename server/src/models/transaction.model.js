@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 const transactionSchema = new Schema({
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "User",
         required: true,
     },
@@ -32,7 +32,9 @@ const transactionSchema = new Schema({
         type: Date,
         required: true,
     },
-});
+},
+    { timestamps: true }
+);
 
 const Transaction = model("Transaction", transactionSchema);
 export default Transaction;
