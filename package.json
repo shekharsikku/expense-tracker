@@ -1,13 +1,13 @@
 {
   "name": "expense-tracker",
   "version": "1.0.0",
-  "description": "",
+  "description": "Expense Tracker App using MERN Stack",
   "main": "index.js",
   "scripts": {
     "install:modules": "npm install --prefix server && npm install --prefix client",
     "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
-    "build": "npm run build --prefix client",
-    "start": "npm run start --prefix server"
+    "build": "npm run install:modules && npm run build --prefix client",
+    "start": "concurrently \"npm run start --prefix server\" \"npm run preview --prefix client\""
   },
   "keywords": [],
   "author": "",
