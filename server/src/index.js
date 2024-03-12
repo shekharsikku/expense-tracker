@@ -22,6 +22,7 @@ configurePassport();
 const app = express();
 const httpServer = http.createServer(app);
 const MongoDBStore = connectMongo(session);
+const __dirname = path.resolve();
 
 const store = new MongoDBStore({
     uri: process.env.MONGO_URI,
@@ -67,6 +68,12 @@ app.use(
         context: async ({ req, res }) => buildContext({ req, res }),
     })
 );
+
+app.use(express.static(path.join(__dirname, "../client/dist")));
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client", "dist", "index.html"));
+});
 
 await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
 await connectToMongoDB();
