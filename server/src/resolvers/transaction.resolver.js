@@ -79,9 +79,20 @@ const transactionResolver = {
                 throw new Error("Error Deleting Transaction!");
             }
         },
-    }
+    },
 
-    // Transaction User Relation Remains!
+    Transaction: {
+        user: async (parent) => {
+            const userId = parent.userId;
+            try {
+                const user = await User.findById(userId);
+                return user;
+            } catch (error) {
+                console.error("Error Getting User!", error.message);
+                throw new Error("Error getting user");
+            }
+        },
+    },
 }
 
 export default transactionResolver;

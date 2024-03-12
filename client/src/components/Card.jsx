@@ -15,7 +15,7 @@ const categoryColorMap = {
     saving: "from-green-700 to-green-400",
     expense: "from-pink-800 to-pink-600",
     investment: "from-blue-700 to-blue-400",
-    // Add more categories and corresponding color classes as needed
+    other: "from-red-600 to-red-400"
 };
 
 const Card = ({ transaction, authUser }) => {
@@ -25,7 +25,6 @@ const Card = ({ transaction, authUser }) => {
         refetchQueries: ["GetTransactions", "GetTransactionStatistics"],
     });
 
-    // Capitalize the first letter of the description
     description = description[0]?.toUpperCase() + description.slice(1);
     category = category[0]?.toUpperCase() + category.slice(1);
     paymentType = paymentType[0]?.toUpperCase() + paymentType.slice(1);
@@ -73,7 +72,7 @@ const Card = ({ transaction, authUser }) => {
                 </p>
                 <div className='flex justify-between items-center'>
                     <p className='text-xs text-black font-bold'>{formattedDate}</p>
-                    <img src={authUser?.profilePicture} className='h-8 w-8 border rounded-full' alt='' />
+                    <img src={authUser?.profilePicture || "/noavatar.png"} className='h-8 w-8 border rounded-full' alt='' />
                 </div>
             </div>
         </div>

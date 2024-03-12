@@ -1,4 +1,4 @@
-import { users } from "../temp/data.js";
+import Transaction from "../models/transaction.model.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 
@@ -90,7 +90,17 @@ const userResolver = {
         },
     },
 
-    // User Transaction Relation Remains!
+    User: {
+        transactions: async (parent) => {
+            try {
+                const transactions = await Transaction.find({ userId: parent._id });
+                return transactions;
+            } catch (error) {
+                console.log("Error Getting Transactions!", error.message);
+                throw new Error(err.message || "Internal Server Error!");
+            }
+        },
+    },
 };
 
 export default userResolver;

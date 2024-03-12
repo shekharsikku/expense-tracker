@@ -41,6 +41,7 @@ const Transaction = () => {
             });
             toast.success("Transaction Updated Successfully!");
         } catch (error) {
+            console.log("Transaction Update Error :", error.message);
             toast.error(error.message);
         } finally {
             if (!error) {

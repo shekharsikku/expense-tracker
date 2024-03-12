@@ -54,6 +54,9 @@ const Home = () => {
                 } else if (category === "investment") {
                     backgroundColors.push("rgba(54, 162, 235)");
                     borderColors.push("rgba(54, 162, 235)");
+                } else if (category === "other") {
+                    backgroundColors.push("rgba(229, 57, 35, 1)");
+                    borderColors.push("rgba(229, 57, 35, 1)");
                 }
             });
 
@@ -89,7 +92,7 @@ const Home = () => {
                         Spend wisely, track wisely
                     </p>
                     <img
-                        src={"https://tecdn.b-cdn.net/img/new/avatars/2.webp"}
+                        src={authUserData?.authUser.profilePicture}
                         className='w-11 h-11 rounded-full border cursor-pointer'
                         alt='Avatar'
                     />
@@ -98,9 +101,11 @@ const Home = () => {
                     {loading && <div className='w-6 h-6 border-t-2 border-b-2 mx-2 rounded-full animate-spin'></div>}
                 </div>
                 <div className='flex flex-wrap w-full justify-center items-center gap-6'>
-                    <div className='h-[330px] w-[330px] md:h-[360px] md:w-[360px] cursor-pointer'>
-                        <Doughnut data={chartData} />
-                    </div>
+                    {data?.categoryStatistics.length > 0 && (
+                        <div className='h-[330px] w-[330px] md:h-[360px] md:w-[360px] cursor-pointer '>
+                            <Doughnut data={chartData} />
+                        </div>
+                    )}
                     <TransactionForm />
                 </div>
                 <Cards />
