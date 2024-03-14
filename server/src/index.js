@@ -15,9 +15,12 @@ import mergedResolvers from "./resolvers/index.js";
 import connectToMongoDB from "./db/mongo.db.js";
 import { configurePassport } from "./passport/passport.config.js";
 
-
 dotenv.config({ path: "./.env" });
 configurePassport();
+
+const port = process.env.PORT
+const uri = process.env.MONGO_URI
+const secret = process.env.SESSION_SECRET
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -33,7 +36,7 @@ store.on("error", (error) => console.log(error.message));
 
 app.use(
     session({
-        secret: process.env.SESSION_SECRET,
+        secret: secret,
         resave: false, // this option specifies whether to save the session to the store on every request
         saveUninitialized: false, // option specifies whether to save uninitialized sessions
         cookie: {
@@ -75,7 +78,7 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../client", "dist", "index.html"));
 });
 
-await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
-await connectToMongoDB();
+await new Promise((resolve) => httpServer.listen({ port: port }, resolve));
+await connectToMongoDB(uri);
 
-console.log(`🚀 Server ready at http://localhost:4000/`);
+console.log(`🚀 Server ready at http://localhost:4000\n`);

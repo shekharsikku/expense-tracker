@@ -1,11 +1,11 @@
 import { connect } from "mongoose";
 
-const connectToMongoDB = async () => {
+const connectToMongoDB = async (connectString) => {
     try {
-        const connectionInstance = await connect(process.env.MONGO_URI)
-        console.log(`Database Connection Successful! Host : ${connectionInstance.connection.host}`)
+        const instance = await connect(connectString)
+        console.log(`\nDatabase Connection Host : ${instance.connection.host}`)
     } catch (error) {
-        console.log("Database Connection Error! : ", error.message);
+        console.log(`Database Connection Error : ${error.message}`);
         process.exit(1)
     }
 }
