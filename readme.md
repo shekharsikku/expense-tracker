@@ -1,5 +1,7 @@
 # MERN Stack Expense Tracker App
 
+![Demo App](/client/public/demo.png)
+
 ## Some Features of App
 
 - 🌟 Tech Stack: MERN + Apollo GraphQL
